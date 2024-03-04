@@ -1,6 +1,5 @@
 import { GlobalStyle } from './app.styles';
-import { QueryProvider } from './providers/QueryProvider';
-import { RouterProvider } from './providers/RouterProvider';
+import { QueryProvider, RouterProvider } from './providers';
 
 export const App = () => {
   return (
