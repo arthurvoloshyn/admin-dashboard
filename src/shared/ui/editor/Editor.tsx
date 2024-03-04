@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/extensions
 import '@mdxeditor/editor/style.css';
 import * as S from './Editor.styles';
 import { type EditorProps } from './Editor.types';

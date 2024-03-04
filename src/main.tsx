@@ -2,8 +2,13 @@ import { App } from './app';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom/client';
 
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-ReactDOM.createRoot(document.querySelector('#root')!).render(
+const container = document.querySelector('#root');
+
+if (!container) {
+  throw new Error('There is no DOM element with a "root" ID.');
+}
+
+ReactDOM.createRoot(container).render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
