@@ -1,2 +1,2 @@
-export { PostCreatePage } from './PostCreatePage.tsx';
-export { PostListPage } from './PostListPage.tsx';
+export { PostCreatePage } from './PostCreatePage';
+export { PostListPage } from './PostListPage';

@@ -1,2 +1,2 @@
-export { DashboardPage } from './dashboard/DashboardPage';
-export { PostListPage } from './posts/PostListPage.tsx';
+export { DashboardPage } from './dashboard';
+export { PostListPage } from './posts';
