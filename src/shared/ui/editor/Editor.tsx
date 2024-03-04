@@ -9,10 +9,32 @@ import {
   ConditionalContents,
   diffSourcePlugin,
   DiffSourceToggleWrapper,
+  type EditorInFocus,
   InsertCodeBlock,
   toolbarPlugin,
   UndoRedo,
 } from '@mdxeditor/editor';
+
+const CONDITIONAL_CONTENTS_OPTIONS = [
+  {
+    contents: () => <ChangeCodeMirrorLanguage />,
+    when: (editor: EditorInFocus | null) => editor?.editorType === 'codeblock',
+  },
+  {
+    fallback: () => <InsertCodeBlock />,
+  },
+];
+
+const ToolbarContents = () => (
+  <>
+    <UndoRedo />
+    <BoldItalicUnderlineToggles />
+    <ConditionalContents options={CONDITIONAL_CONTENTS_OPTIONS} />
+    <DiffSourceToggleWrapper>
+      <UndoRedo />
+    </DiffSourceToggleWrapper>
+  </>
+);
 
 export const Editor = (props: EditorProps) => {
   const { data, ...rest } = props;
@@ -31,26 +53,7 @@ export const Editor = (props: EditorProps) => {
           viewMode: 'rich-text',
         }),
         toolbarPlugin({
-          toolbarContents: () => (
-            <>
-              <UndoRedo />
-              <BoldItalicUnderlineToggles />
-              <ConditionalContents
-                options={[
-                  {
-                    contents: () => <ChangeCodeMirrorLanguage />,
-                    when: (editor) => editor?.editorType === 'codeblock',
-                  },
-                  {
-                    fallback: () => <InsertCodeBlock />,
-                  },
-                ]}
-              />
-              <DiffSourceToggleWrapper>
-                <UndoRedo />
-              </DiffSourceToggleWrapper>
-            </>
-          ),
+          toolbarContents: ToolbarContents,
         }),
       ]}
     />

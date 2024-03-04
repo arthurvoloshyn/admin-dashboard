@@ -32,10 +32,10 @@ export const PostForm = (props: PostFormProps) => {
 
   useEffect(() => {
     register('body');
-  }, []);
+  }, [register]);
 
-  const handleEditorChange = (data: string) => {
-    setValue('body', data);
+  const handleEditorChange = (markdown: string) => {
+    setValue('body', markdown);
   };
 
   return (
