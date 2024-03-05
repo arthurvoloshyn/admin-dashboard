@@ -19,4 +19,4 @@ yarn dev - run frontend project in dev mode
 - `yarn lint` - Lint check for js & ts files
 - `yarn lint:fix` - Fix js & ts files with linter
 - `yarn tsc` - Type-check ts files without emitting output files
-- `yarn preview` - Launch a preview server for the built project on Vite
+- `yarn preview` - Launch a preview server for the built project on vite
