@@ -1,5 +1,5 @@
 import { ROUTES } from '../../app';
-import { deletePost, getPosts } from '../../entities/post';
+import { deletePost, getPosts } from '../../entities';
 import { useQueryParameters } from '../../shared/hooks';
 import { PageLoader } from '../../shared/ui/pageLoader';
 import { PostTable } from '../../widgets/PostTable';

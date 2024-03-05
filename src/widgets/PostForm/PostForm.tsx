@@ -80,7 +80,7 @@ export const PostForm = (props: PostFormProps) => {
           disabled={disabled}
           htmlType="submit"
         >
-          Сохранить
+          Save
         </Button>
       </Form>
     </Flex>
