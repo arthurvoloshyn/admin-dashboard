@@ -45,7 +45,7 @@ export const PostListPage = () => {
         <>
           <div>
             <Link to={ROUTES.POST_CREATE.path}>
-              <Button>Добавить</Button>
+              <Button>Add</Button>
             </Link>
           </div>
           <PostTable
