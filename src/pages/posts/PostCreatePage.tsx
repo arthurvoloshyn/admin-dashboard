@@ -1,5 +1,5 @@
-import { ROUTES } from '../../app';
 import { createPost } from '../../entities/post/api/Api';
+import { ROUTES } from '../../shared/const';
 import { Alert } from '../../shared/ui/alert';
 import { PostForm } from '../../widgets/PostForm';
 import { useMutation } from '@tanstack/react-query';

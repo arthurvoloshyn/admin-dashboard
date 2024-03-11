@@ -1,8 +1,8 @@
 import { DashboardPage, PostListPage } from '../../pages';
 import { PostCreatePage } from '../../pages/posts';
 import { PostUpdatePage } from '../../pages/posts/PostUpdatePage';
+import { ROUTES } from '../../shared/const';
 import { MainLayout } from '../../shared/ui/layouts';
-import { ROUTES } from '../const';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 export const RouterProvider = () => {

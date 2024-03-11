@@ -1,6 +1,6 @@
-import { ROUTES } from '../../app';
 import { getPost } from '../../entities';
 import { updatePost } from '../../entities/post/api/Api';
+import { ROUTES } from '../../shared/const';
 import { useRequiredParameters } from '../../shared/hooks';
 import { Alert } from '../../shared/ui/alert';
 import { PageLoader } from '../../shared/ui/pageLoader';

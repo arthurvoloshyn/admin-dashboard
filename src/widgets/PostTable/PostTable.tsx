@@ -1,5 +1,4 @@
-import { ROUTES } from '../../app';
-import { type Post } from '../../entities';
+import { ROUTES } from '../../shared/const';
 import * as S from './PostTable.styles';
 import { type PostsTableProps } from './PostTable.types';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
@@ -32,7 +31,7 @@ export const PostTable = (props: PostsTableProps) => {
 
     {
       key: 'actions',
-      render: (_: unknown, record: Post) => (
+      render: (_: unknown, record: { id: string }) => (
         <S.ActionBlock>
           <Link to={`${ROUTES.POST_UPDATE.path}/${record.id}`}>
             <EditOutlined />

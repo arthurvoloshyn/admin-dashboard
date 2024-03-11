@@ -1,4 +1,4 @@
-import { ROUTES } from '../../../app';
+import { ROUTES } from '../../const';
 import * as A from 'antd';
 import { Link } from 'react-router-dom';
 
