@@ -1,0 +1,37 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build and Push Docker image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Login to Docker registry
+        run: echo "${{ secrets.CI_REGISTRY_PASSWORD }}" | docker login -u ${{ secrets.CI_REGISTRY_USER }} --password-stdin ${{ secrets.CI_REGISTRY }}
+
+      - name: Build Docker image
+        run: |
+          docker build -t ${{ secrets.CI_REGISTRY_IMAGE }}:${{ github.sha }} -t ${{ secrets.CI_REGISTRY_IMAGE }}:latest -f ./deployments/Dockerfile .
+
+      - name: Push Docker image
+        run: |
+          docker push ${{ secrets.CI_REGISTRY_IMAGE }}:latest
+          docker push ${{ secrets.CI_REGISTRY_IMAGE }}:${{ github.sha }}
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Login to Docker registry
+        run: echo "${{ secrets.CI_REGISTRY_PASSWORD }}" | docker login -u ${{ secrets.CI_REGISTRY_USER }} --password-stdin ${{ secrets.CI_REGISTRY }}
+
+      - name: Deploy Docker container
+        run: docker run -d -p 8000:8001 ${{ secrets.CI_REGISTRY_IMAGE }}:latest
