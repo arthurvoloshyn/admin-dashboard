@@ -12,18 +12,21 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
+      
       - name: Login to Docker registry
         run: echo "${{ secrets.CI_REGISTRY_PASSWORD }}" | docker login -u ${{ secrets.CI_REGISTRY_USER }} --password-stdin ${{ secrets.CI_REGISTRY }}
 
+      - name: Copy environment file
+        run: cp $ENV_FILE .env
+      
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.CI_REGISTRY_IMAGE }}:${{ github.sha }} -t ${{ secrets.CI_REGISTRY_IMAGE }}:latest -f ./deployments/Dockerfile .
-
+          docker build -t "${{ secrets.CI_REGISTRY_IMAGE }}/main:${{ github.sha }}" -t "${{ secrets.CI_REGISTRY_IMAGE }}/main:latest" -f ./deployments/main.dockerfile .
+      
       - name: Push Docker image
         run: |
-          docker push ${{ secrets.CI_REGISTRY_IMAGE }}:latest
-          docker push ${{ secrets.CI_REGISTRY_IMAGE }}:${{ github.sha }}
+          docker push "${{ secrets.CI_REGISTRY_IMAGE }}/main:${{ github.sha }}"
+          docker push "${{ secrets.CI_REGISTRY_IMAGE }}/main:latest"
 
   deploy:
     name: Deploy
@@ -33,5 +36,11 @@ jobs:
       - name: Login to Docker registry
         run: echo "${{ secrets.CI_REGISTRY_PASSWORD }}" | docker login -u ${{ secrets.CI_REGISTRY_USER }} --password-stdin ${{ secrets.CI_REGISTRY }}
 
-      - name: Deploy Docker container
-        run: docker run -d -p 8000:8001 ${{ secrets.CI_REGISTRY_IMAGE }}:latest
+      - name: Pull Docker images
+        run: docker compose -f deployments/docker-compose.prod.yml --project-directory ./ pull
+      
+      - name: Deploy Docker containers
+        run: docker compose -f deployments/docker-compose.prod.yml --project-directory ./ up --force-recreate --build --remove-orphans -d
+      
+      - name: Prune unused Docker images
+        run: docker image prune -f
